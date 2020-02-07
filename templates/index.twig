@@ -1,0 +1,13 @@
+{% extends "skeleton.twig" %}
+{% import "macros.twig" as macros %}
+
+{% block body %}
+    {% if tagcloud %}
+    <section class="tagcloud-outer">
+        <h2>Tagcloud</h2>
+        {{ macros.tagcloud(tagcloud) }}
+    </section>
+    {% endif %}
+
+    {{ macros.new_note() }}
+{% endblock %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% import "macros.twig" as macros %}
+<html lang="en">
+<head>
+{% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link type="text/css" rel="stylesheet" href="{{ url("assets/styles.css") }}">
+
+    <script src="{{ url("vendor/components/jquery/jquery.min.js") }}"></script>
+    <script src="{{ url("assets/interactive.js") }}"></script>
+    <title>{% block title %}micropoly{% endblock %}</title>
+{% endblock %}
+</head>
+<body>
+    {% block header %}
+        <header>
+            <nav class="mainmenu">
+                <ul>
+                    <li><a href="{{ url("") }}" class="homelink">micropoly</a> </li>
+                    <li><a href="{{ url("new-note") }}">Add note</a></li>
+                </ul>
+            </nav>
+            <section class="s-search">
+                {{ macros.searchbox(query) }}
+            </section>
+        </header>
+    {% endblock %}
+    {% block body %}
+    {% endblock %}
+</body>
+</html>

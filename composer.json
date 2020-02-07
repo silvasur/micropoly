@@ -1,0 +1,27 @@
+{
+  "name": "code.laria.me/micropoly",
+  "type": "project",
+  "require": {
+    "twig/twig": "^3.0",
+    "nikic/fast-route": "^1.3",
+    "components/jquery": "^3.4",
+    "php": "^7.4",
+    "ext-sqlite3": "*",
+    "monolog/monolog": "^2.0"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Laria Carolin Chabowski",
+      "email": "laria@laria.me"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Micropoly\\": "src"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.5"
+  }
+}

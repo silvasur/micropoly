@@ -1,0 +1,23 @@
+{% extends "skeleton.twig" %}
+{% import "macros.twig" as macros %}
+
+{% block body %}
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% else %}
+        <ul class="search-result note-list">
+        {% for result in results %}
+            <li>
+                <a href="{{ url("n/%s", result.note.id) }}">[e]</a>
+                <div class="content">{{ result.renderHighlightedContent()|raw }}</div>
+                <ul class="tags">
+                    {% for tag in result.note.tags %}
+                        <li class="tag">{{ macros.taglink(tag) }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}

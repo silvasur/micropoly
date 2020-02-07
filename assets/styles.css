@@ -1,0 +1,232 @@
+html {
+    --tag-bgcolor: hsl(200, 87.8%, 35.5%);
+    --tag-fgcolor: white;
+    --fg: #f9f9f9;
+    --bg: #22222f;
+    --bg-2: #333;
+    --bg-2-highlight: #444;
+    --fg-link-normal: #7187d7;
+    --fg-link-active: #ff3f00;
+    --fg-link-visited: #9f71d7;
+    --col-separator: #aaa;
+}
+
+html {
+    background: var(--bg);
+    color: var(--fg);
+    margin: 0;
+    padding: 1rem;
+    font-family: sans-serif;
+}
+
+body {
+    width: 85%;
+    margin: 10px auto;
+    padding: 0;
+}
+
+@media screen and (max-width: 400px) {
+    body {
+        width: auto;
+        margin: 10px 4px;
+    }
+}
+
+a:link {
+  color: var(--fg-link-normal);
+  text-decoration: none;
+}
+a:link:hover {
+  text-decoration: underline;
+}
+a:link:active {
+  color: var(--fg-link-active);
+}
+a:link:visited {
+  color: var(--fg-link-visited);
+}
+
+.tag {
+    background: var(--tag-bgcolor);
+    color: var(--tag-fgcolor);
+    padding: 5px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+    height: 1em;
+}
+
+.tag a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.tag a:hover {
+    text-decoration: underline;
+}
+
+.tc-1 { font-size: 0.7em; }
+.tc-2 { font-size: 0.8em; }
+.tc-3 { font-size: 0.9em; }
+.tc-4 { font-size: 1em; }
+.tc-5 { font-size: 1.1em; }
+
+.tag-input .delete {
+    background: var(--tag-bgcolor);
+    border: 1px solid var(--tag-fgcolor);
+    margin: 2px 6px 2px 2px;
+    padding: 1px;
+    color: var(--tag-fgcolor);
+    border-radius: 3px;
+    display: inline-block;
+    font-size: 0.8em;
+    font-family: sans-serif;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+}
+
+.tag-input .delete:hover {
+    background: var(--tag-fgcolor);
+    color: var(--tag-bgcolor);
+}
+
+.tag-input .labelled-input {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 6px;
+    border-radius: 3px;
+    background-color: var(--bg-2);
+}
+
+.tag-input .labelled-input:hover {
+    background-color: var(--bg-2-highlight);
+}
+
+.tag-user-input {
+    flex-grow: 1;
+    min-width: 250px;
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-size: inherit;
+    border-bottom: 1px solid var(--bg);
+}
+
+#note-content {
+    background: transparent;
+    color: inherit;
+    border: 1px solid var(--fg);
+    margin: 0;
+    padding: 5px;
+    width: calc(100% - 12px);
+    min-height: 5em;
+    height: 50vh;
+}
+
+@media screen and (max-width: 200px) {
+    .tag-user-input {
+        min-width: 90vw;
+    }
+}
+
+header {
+    margin: 0 0 10px;
+    padding: 0 0 10px;
+    border-bottom: 1px solid var(--col-separator);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mainmenu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.mainmenu li {
+    display: inline-block;
+}
+
+.mainmenu li:not(:first-child) {
+    margin-left: 10px;
+}
+
+.mainmenu a {
+    color: var(--fg);
+}
+
+.homelink {
+    letter-spacing: 3px;
+}
+
+.s-search {
+    flex-grow: 1;
+}
+
+.search-form {
+    display: flex;
+}
+.search-input {
+    background: transparent;
+    color: inherit;
+    border: 0;
+    padding: 4px 10px;
+    border-bottom: 1px solid var(--col-separator);
+    transition: 0.3s border-bottom-color;
+}
+
+.search-input:hover, .search-input:focus {
+    border-bottom-color: var(--fg);
+}
+
+.search-input {
+    flex-grow: 1;
+}
+
+input:placeholder-shown {
+    font-style: italic;
+}
+
+.note-list {
+    list-style: none;
+    padding: 0;
+}
+
+.note-list > li {
+    background: #444;
+    margin: 10px 0;
+    padding: 3px 8px;
+    border-radius: 3px;
+}
+
+.autocomplete-root {
+    position: relative;
+    display: inline-block;
+}
+
+.autocomplete-root ul {
+	display: block;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	z-index: 1;
+	background: var(--bg-2);
+	min-width: 200px;
+	border: 1px solid var(--bg);
+}
+
+.autocomplete-root li {
+	padding: 4px 10px;
+}
+
+.autocomplete-root li.active {
+	background: var(--fg);
+	color: var(--bg);
+}
+
+.autocomplete-root:not(.show-suggestions) ul {
+	display: none;
+}

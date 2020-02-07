@@ -1,0 +1,50 @@
+{% macro taglink(tag) %}
+    <a href="{{ url("search") ~ "?q=" ~ ("#" ~ (tag|search_escape))|e("url") }}">{{ tag }}</a>
+{% endmacro %}
+
+{% macro tagcloud(tagcloud) %}
+    <ul class="tagcloud">{% for tag, magnitude in tagcloud %}
+        <li class="tag tc-{{ magnitude }}">{{ _self.taglink(tag) }}</li>
+    {%  endfor %}</ul>
+{% endmacro %}
+
+{% macro searchbox(query="") %}
+    <form action="{{ url("search") }}" class="search-form">
+        <input
+                type="text"
+                name="q"
+                placeholder="foo bar, #tag1 #tag2, &quot;full text&quot; and (#tag1 or #tag2), ..."
+                value="{{ query }}"
+                class="search-input"
+        />
+        <button type="submit" class="search-btn">Search</button>
+    </form>
+{% endmacro %}
+
+{% macro note_form_content(note) %}
+    <div class="labelled">
+        <label for="note-content">Content</label>
+        <div class="labelled-content">
+            <textarea id="note-content" name="content">{{ note.content }}</textarea>
+        </div>
+    </div>
+    <fieldset class="tags">
+        <legend>Tags</legend>
+        {% for tag in note.tags %}
+            <input type="text" name="tag[]" value="{{ tag }}" />
+        {% endfor %}
+        {% for i in 0..10 %}
+            <input type="text" name="tag[]" />
+        {% endfor %}
+    </fieldset>
+{% endmacro %}
+
+{% macro new_note() %}
+    <section class="new-note">
+        <h2>New Note</h2>
+        <form action="{{ url("new-note") }}" method="post">
+            {{ _self.note_form_content({}) }}
+            <button type="submit">Create</button>
+        </form>
+    </section>
+{% endmacro %}

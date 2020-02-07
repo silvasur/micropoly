@@ -1,0 +1,15 @@
+{% extends "skeleton.twig" %}
+{% import "macros.twig" as macros %}
+{% block body %}
+    <form action="{{ url("n/%s", note.id) }}" method="post">
+        {{ macros.note_form_content(note) }}
+        <button type="submit">Save</button>
+        <button
+                type="submit"
+                name="delete"
+                value="delete"
+                class="confirm"
+                data-question="Do you really want to delete the note?"
+        >Delete</button>
+    </form>
+{% endblock %}

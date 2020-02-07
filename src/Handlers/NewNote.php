@@ -1,0 +1,40 @@
+<?php
+
+
+namespace Micropoly\Handlers;
+
+
+use Micropoly\Env;
+use Micropoly\Esc;
+use Micropoly\Handler;
+use Micropoly\Models\Note;
+
+class NewNote implements Handler
+{
+    private static function getPostedContent(): ?string
+    {
+        if (empty($_POST["content"]))
+            return null;
+
+        $content = trim((string)$_POST["content"]);
+        return empty($content) ? null : $content;
+    }
+
+    public function handle(Env $env, array $variables)
+    {
+        $content = self::getPostedContent();
+        if ($content !== null) {
+            $note = new Note();
+            $note->setContent($content);
+            $note->setTags($_POST["tag"]);
+            $note->save($env->db());
+
+            $url = $env->documentRoot() . "n/" . $note->getId();
+            http_response_code(303);
+            header("Location: {$url}");
+            echo 'Note created: <a href="' . Esc::e($url) . '">';
+        }
+
+        echo $env->twig()->render("/new_note.twig", []);
+    }
+}
