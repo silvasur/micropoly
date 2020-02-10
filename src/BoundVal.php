@@ -24,7 +24,7 @@ class BoundVal
     public static function ofFloat($val): self { return new self($val, SQLITE3_FLOAT); }
     public static function ofText($val): self { return new self($val, SQLITE3_TEXT); }
     public static function ofBlob($val): self { return new self($val, SQLITE3_BLOB); }
-    public static function ofNull($val): self { return new self($val, SQLITE3_NULL); }
+    public static function ofNull(): self { return new self(null, SQLITE3_NULL); }
 
     public function bind(SQLite3Stmt $stmt, $where): void
     {

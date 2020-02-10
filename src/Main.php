@@ -6,6 +6,7 @@ use Closure;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 use Micropoly\Handlers\ApiTagsHandler;
+use Micropoly\Handlers\AttachmentHandler;
 use Micropoly\Handlers\Index;
 use Micropoly\Handlers\MethodNotAllowedHandler;
 use Micropoly\Handlers\NewNote;
@@ -13,6 +14,7 @@ use Micropoly\Handlers\NoteHandler;
 use Micropoly\Handlers\NotFoundHandler;
 
 use Micropoly\Handlers\Search;
+use Micropoly\Models\Attachment;
 use function FastRoute\simpleDispatcher;
 
 class Main implements Entrypoint
@@ -24,6 +26,7 @@ class Main implements Entrypoint
         $r->addRoute(["GET"], "/search", Search::class);
         $r->addRoute(["GET", "POST"], "/n/{id}", NoteHandler::class);
         $r->addRoute(["GET"], "/api/tags", ApiTagsHandler::class);
+        $r->addRoute(["GET"], "/attachments/{id}", AttachmentHandler::class);
     }
 
     public function run(Env $env)

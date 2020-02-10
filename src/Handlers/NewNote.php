@@ -7,6 +7,7 @@ namespace Micropoly\Handlers;
 use Micropoly\Env;
 use Micropoly\Esc;
 use Micropoly\Handler;
+use Micropoly\Models\Attachment;
 use Micropoly\Models\Note;
 
 class NewNote implements Handler
@@ -28,6 +29,9 @@ class NewNote implements Handler
             $note->setContent($content);
             $note->setTags($_POST["tag"]);
             $note->save($env->db());
+
+            if (isset($_FILES['attachments']))
+                Attachment::createFromUploads($env->db(), $env->attachmentsPath(), $note, $_FILES['attachments']);
 
             $url = $env->documentRoot() . "n/" . $note->getId();
             http_response_code(303);

@@ -36,7 +36,10 @@ class Schema
         switch ($version) {
             case 0:
                 $this->v1();
-                $this->setSchemaVersion(1);
+                // fallthrough
+            case 1:
+                $this->v2();
+                $this->setSchemaVersion(2);
         }
     }
 
@@ -76,5 +79,25 @@ class Schema
                 FROM tags
                 GROUP BY tag
         ");
+    }
+
+    private function v2()
+    {
+        $this->db->exec("
+            CREATE TABLE attachments (hash TEXT NOT NULL PRIMARY KEY) WITHOUT ROWID
+        ");
+
+        $this->db->exec("
+            CREATE TABLE note_attachments (
+                id VARCHAR(23) NOT NULL PRIMARY KEY,
+                note_id VARCHAR(23) NOT NULL REFERENCES notes (id) ON UPDATE CASCADE ON DELETE CASCADE,
+                hash TEXT NOT NULL REFERENCES attachments (hash) ON UPDATE CASCADE ON DELETE CASCADE,
+                file_name TEXT NULL DEFAULT NULL,
+                mime TEXT NOT NULL DEFAULT 'application/octet-stream'
+            ) WITHOUT ROWID;
+        ");
+
+        $this->db->exec("CREATE INDEX note_id ON note_attachments (note_id)");
+        $this->db->exec("CREATE INDEX hash ON note_attachments (hash)");
     }
 }

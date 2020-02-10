@@ -247,4 +247,13 @@ class Note
             ->exec($db);
         $this->savedToDb = false;
     }
+
+    /**
+     * @param SQLite3 $db
+     * @return Attachment[]
+     */
+    public function getAttachments(SQLite3 $db): array
+    {
+        return Attachment::byNoteId($db, $this->id);
+    }
 }

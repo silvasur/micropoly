@@ -37,12 +37,26 @@
             <input type="text" name="tag[]" />
         {% endfor %}
     </fieldset>
+    <div class="attachments-container">
+        <h2>Attachments</h2>
+        <ul class="attachment-list">
+            {% for att in note.attachments %}
+                <li>
+                    <a href="{{ url("attachments/%s", att.id) }}">{{ att.fileName ? att.fileName : att.id }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <ul class="attachment-inputs">
+            <li><input type="file" name="attachments[]"></li>
+        </ul>
+    </div>
 {% endmacro %}
 
 {% macro new_note() %}
     <section class="new-note">
         <h2>New Note</h2>
-        <form action="{{ url("new-note") }}" method="post">
+        <form action="{{ url("new-note") }}" method="post" enctype="multipart/form-data">
             {{ _self.note_form_content({}) }}
             <button type="submit">Create</button>
         </form>

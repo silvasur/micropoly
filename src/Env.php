@@ -2,6 +2,7 @@
 
 namespace Micropoly;
 
+use RuntimeException;
 use SQLite3;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -76,5 +77,13 @@ class Env
 
             return $db;
         });
+    }
+
+    public function attachmentsPath(): string
+    {
+        $attachments = $this->config['attachments'];
+        if (!is_dir($attachments) || !is_writable($attachments))
+            throw new RuntimeException("Attachment directory '$attachments' is not a writable directory.");
+        return $attachments;
     }
 }

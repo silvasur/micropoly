@@ -6,7 +6,9 @@ namespace Micropoly\Handlers;
 
 use Micropoly\Env;
 use Micropoly\Handler;
+use Micropoly\Models\Attachment;
 use Micropoly\Models\Note;
+use Micropoly\TemplateModelWrappers\NoteForTemplate;
 
 class NoteHandler implements Handler
 {
@@ -32,8 +34,11 @@ class NoteHandler implements Handler
             $note->setContent($_POST["content"]);
             $note->setTags($_POST["tag"]);
             $note->save($db);
+
+            if (isset($_FILES['attachments']))
+                Attachment::createFromUploads($env->db(), $env->attachmentsPath(), $note, $_FILES['attachments']);
         }
 
-        echo $env->twig()->render("/note.twig", ["note" => $note]);
+        echo $env->twig()->render("/note.twig", ["note" => new NoteForTemplate($db, $note)]);
     }
 }
