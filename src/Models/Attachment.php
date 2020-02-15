@@ -200,6 +200,9 @@ class Attachment
         $inserts = [];
 
         foreach (self::transposeUploadsArray($uploads) as $upload) {
+            if ($upload["error"] !== UPLOAD_ERR_OK)
+                continue;
+
             $hash = hash_file(self::HASH_ALGO, $upload["tmp_name"]);
             if (self::hasHash($db, $hash)) {
                 unlink($upload["tmp_name"]);
