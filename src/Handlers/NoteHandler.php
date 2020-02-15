@@ -23,7 +23,7 @@ class NoteHandler implements Handler
         }
 
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            if ($_POST["delete"] === "delete") {
+            if (isset($_POST["delete"]) && $_POST["delete"] === "delete") {
                 $note->delete($db);
                 http_response_code(303);
                 $url = $env->documentRoot();
