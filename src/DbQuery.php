@@ -194,4 +194,9 @@ class DbQuery
             return $out;
         });
     }
+
+    public function fetchValues(SQLite3 $db): array
+    {
+        return array_map(fn ($row) => $row[0], $this->fetchRows($db));
+    }
 }

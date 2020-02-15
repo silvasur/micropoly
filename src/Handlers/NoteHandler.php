@@ -35,6 +35,16 @@ class NoteHandler implements Handler
             $note->setTags($_POST["tag"]);
             $note->save($db);
 
+            $deleteAttachments = $_POST['attachment_delete'] ?? [];
+            $deleteAttachments = array_filter($deleteAttachments, fn ($ok) => (bool)(int)$ok);
+            $deleteAttachments = array_keys($deleteAttachments);
+            $deleteAttachments = Attachment::byIds($db, $deleteAttachments);
+            $deleteAttachments = array_filter($deleteAttachments, fn (Attachment $att) => $att->getNoteId() === $note->getId());
+
+            /** @var Attachment $att */
+            foreach ($deleteAttachments as $att)
+                $att->delete($db, $env->attachmentsPath());
+
             if (isset($_FILES['attachments']))
                 Attachment::createFromUploads($env->db(), $env->attachmentsPath(), $note, $_FILES['attachments']);
         }

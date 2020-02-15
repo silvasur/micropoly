@@ -39,17 +39,32 @@
     </fieldset>
     <div class="attachments-container">
         <h2>Attachments</h2>
-        <ul class="attachment-list">
-            {% for att in note.attachments %}
-                <li>
-                    <a href="{{ url("attachments/%s", att.id) }}">{{ att.fileName ? att.fileName : att.id }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-
-        <ul class="attachment-inputs">
-            <li><input type="file" name="attachments[]"></li>
-        </ul>
+        <table class="attachments">
+            <thead>
+                <tr>
+                    <th>Delete</th>
+                    <th>File name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for att in note.attachments %}
+                    <tr class="existing">
+                        <td>
+                            <input type="checkbox" class="attachment-delete-checkbox" value="1" name="attachment_delete[{{ att.id }}]">
+                        </td>
+                        <td>
+                            <a href="{{ url("attachments/%s", att.id) }}">{{ att.fileName ? att.fileName : att.id }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr class="new">
+                    <td></td>
+                    <td>
+                        <input type="file" multiple name="attachments[]">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 {% endmacro %}
 

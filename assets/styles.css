@@ -230,3 +230,8 @@ input:placeholder-shown {
 .autocomplete-root:not(.show-suggestions) ul {
 	display: none;
 }
+
+.attachments .delete {
+	font-style: italic;
+	text-decoration: line-through;
+}

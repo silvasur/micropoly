@@ -70,7 +70,7 @@ class Attachment
             LEFT JOIN note_attachments na
                 ON na.hash = a.hash
             WHERE na.id IS NULL
-        "))->fetchRows($db) as $hash) {
+        "))->fetchValues($db) as $hash) {
             self::deleteFileByHash($attachmentPath, $hash);
         }
 

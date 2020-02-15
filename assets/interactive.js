@@ -102,7 +102,7 @@ $(function () {
             this.set_visible(false);
             return;
         }
-        
+
         this.get_suggestions(input_text, function (suggestions) {
             console.log(suggestions);
             suggestions = Array.prototype.slice.call(suggestions, 0);
@@ -289,5 +289,20 @@ $(function () {
     $("button.confirm").on("click", function (ev) {
         if (!window.confirm($(this).data("question")))
             ev.preventDefault();
-    })
+    });
+
+    function updateAttachmentDeletionClass(tr) {
+        tr = $(tr);
+        tr.toggleClass("delete", tr.find(".attachment-delete-checkbox")[0].checked);
+    }
+
+    function attachmentDeleteCheckbox(tr) {
+        $(tr).each(function () {
+            updateAttachmentDeletionClass(this);
+        }).find(".attachment-delete-checkbox").on("change", function () {
+            updateAttachmentDeletionClass($(this).closest("tr"));
+        });
+    }
+
+    attachmentDeleteCheckbox($(".attachments tbody tr"));
 });
