@@ -62,8 +62,8 @@ class LogicOp implements SearchExpr
 
         $a = $this->a->toSQL("a_$bindPrefix", $singleFTS);
         $b = $this->b->toSQL("b_$bindPrefix", $singleFTS);
+        assert(isset(self::SQLOPS[$this->op]));
         $sqlop = self::SQLOPS[$this->op];
-        assert($sqlop);
 
         $sqlex->sql = "(({$a->sql}) {$sqlop} ({$b->sql}))";
         $sqlex->bindings = array_merge($a->bindings, $b->bindings);
