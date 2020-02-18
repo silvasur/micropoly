@@ -32,17 +32,17 @@ body {
     }
 }
 
-a:link {
+:link {
   color: var(--fg-link-normal);
   text-decoration: none;
 }
-a:link:hover {
+a:hover {
   text-decoration: underline;
 }
-a:link:active {
+a:active {
   color: var(--fg-link-active);
 }
-a:link:visited {
+:visited {
   color: var(--fg-link-visited);
 }
 
