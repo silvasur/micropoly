@@ -293,7 +293,7 @@ $(function () {
 
     function updateAttachmentDeletionClass(tr) {
         tr = $(tr);
-        tr.toggleClass("delete", tr.find(".attachment-delete-checkbox")[0].checked);
+        tr.toggleClass("delete", tr.find(".attachment-delete-checkbox").eq(0).prop("checked"));
     }
 
     function attachmentDeleteCheckbox(tr) {
