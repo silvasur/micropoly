@@ -29,9 +29,18 @@ class Main implements Entrypoint
         $r->addRoute(["GET"], "/attachments/{id}", AttachmentHandler::class);
     }
 
+    private static function populateGET(): void
+    {
+        $parts = explode("?", $_SERVER["REQUEST_URI"]);
+        if (isset($parts[1]))
+            parse_str($parts[1], $_GET);
+    }
+
     public function run(Env $env)
     {
         $disp = simpleDispatcher(Closure::fromCallable([self::class, "buildRoutes"]));
+
+        self::populateGET();
 
         $uri = preg_replace('/\?.*$/', "", $_SERVER["REQUEST_URI"]);
         $result = $disp->dispatch($_SERVER["REQUEST_METHOD"], $uri);
