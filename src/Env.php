@@ -39,7 +39,7 @@ class Env
         return $this->lazy("twig", function () {
             $loader = new FilesystemLoader($this->config["templates_path"]);
             $env = new Environment($loader, [
-                "cache" => $this->config["templates_cache"],
+                "cache" => $this->config["templates_cache"] ?? false,
             ]);
 
             $env->addFunction(new TwigFunction("url", function (string $url, ...$args) {
