@@ -8,6 +8,8 @@ html {
     --fg-link-normal: #7187d7;
     --fg-link-active: #ff3f00;
     --fg-link-visited: #9f71d7;
+    --success-color: hsl(98.1, 63.9%, 51.2%);
+    --success-bgcolor: hsl(175.4, 16%, 15.9%);
     --col-separator: #aaa;
 }
 
@@ -234,4 +236,14 @@ input:placeholder-shown {
 .attachments .delete {
 	font-style: italic;
 	text-decoration: line-through;
+}
+
+.success {
+    border: 1px solid var(--success-color);
+    background: var(--success-bgcolor);
+    color: var(--success-color);
+    padding: 10px;
+    margin: 10px 0;
+    text-align: center;
+    border-radius: 2px;
 }

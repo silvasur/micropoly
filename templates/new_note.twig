@@ -1,5 +1,8 @@
 {% extends "skeleton.twig" %}
 {% import "macros.twig" as macros %}
 {% block body %}
+    {% if success %}
+        <div class="success">Succcessfully created new note!</div>
+    {% endif %}
     {{ macros.new_note() }}
 {%  endblock %}

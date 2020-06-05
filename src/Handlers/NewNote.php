@@ -24,6 +24,7 @@ class NewNote implements Handler
     public function handle(Env $env, array $variables)
     {
         $content = self::getPostedContent();
+        $templateData = [];
         if ($content !== null) {
             $note = new Note();
             $note->setContent($content);
@@ -34,11 +35,16 @@ class NewNote implements Handler
                 Attachment::createFromUploads($env->db(), $env->attachmentsPath(), $note, $_FILES['attachments']);
 
             $url = $env->documentRoot() . "n/" . $note->getId();
-            http_response_code(303);
-            header("Location: {$url}");
-            echo 'Note created: <a href="' . Esc::e($url) . '">';
+            if ($_POST["create_and_new"]) {
+                $templateData["success"] = true;
+            } else {
+                http_response_code(303);
+                header("Location: {$url}");
+                echo 'Note created: <a href="' . Esc::e($url) . '">';
+                return;
+            }
         }
 
-        echo $env->twig()->render("/new_note.twig", []);
+        echo $env->twig()->render("/new_note.twig", $templateData);
     }
 }
