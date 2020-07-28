@@ -33,8 +33,8 @@ class FTSLogicOp extends AbstractFTSExpr
 
     protected function fts4Query(): string
     {
+        assert(isset(self::FTSOPS[$this->op]));
         $ftsop = self::FTSOPS[$this->op];
-        assert($ftsop);
 
         return "({$this->a->fts4Query()} {$ftsop} {$this->b->fts4Query()})";
     }
